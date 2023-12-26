@@ -1,0 +1,154 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2yjopts8um56"]
+
+[ext_resource type="Script" path="res://level/gate.gd" id="1_0smhx"]
+
+[sub_resource type="Animation" id="Animation_foij3"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door_right:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.25), Vector3(0, 0, -0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door_left:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.25), Vector3(0, 0, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_72uoh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door_right:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door_left:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.25)]
+}
+
+[sub_resource type="Animation" id="Animation_q7u0l"]
+resource_name = "close"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("door_left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.75), Vector3(0, 0, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("door_right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.75), Vector3(0, 0, -0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4yk8h"]
+_data = {
+"RESET": SubResource("Animation_72uoh"),
+"close": SubResource("Animation_q7u0l"),
+"open": SubResource("Animation_foij3")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os7gi"]
+size = Vector3(0.5, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vkffk"]
+size = Vector3(0.2, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gddxw"]
+size = Vector3(0.1, 0.2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mehle"]
+size = Vector3(0.2, 3, 0.5)
+
+[node name="gate" type="Node3D"]
+script = ExtResource("1_0smhx")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4yk8h")
+}
+
+[node name="door_sensor" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="collision" type="CollisionShape3D" parent="door_sensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+shape = SubResource("BoxShape3D_os7gi")
+
+[node name="door_right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+
+[node name="collision" type="CollisionShape3D" parent="door_right"]
+shape = SubResource("BoxShape3D_vkffk")
+
+[node name="light" type="MeshInstance3D" parent="door_right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0)
+mesh = SubResource("BoxMesh_gddxw")
+skeleton = NodePath("../..")
+
+[node name="mesh" type="MeshInstance3D" parent="door_right"]
+mesh = SubResource("BoxMesh_mehle")
+skeleton = NodePath("../..")
+
+[node name="door_left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
+
+[node name="collision" type="CollisionShape3D" parent="door_left"]
+shape = SubResource("BoxShape3D_vkffk")
+
+[node name="light" type="MeshInstance3D" parent="door_left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0)
+mesh = SubResource("BoxMesh_gddxw")
+skeleton = NodePath("../..")
+
+[node name="mesh" type="MeshInstance3D" parent="door_left"]
+mesh = SubResource("BoxMesh_mehle")
+skeleton = NodePath("../..")
+
+[connection signal="body_entered" from="door_sensor" to="." method="on_door_sensor_body_entered"]
+[connection signal="body_exited" from="door_sensor" to="." method="on_door_sensor_body_exited"]

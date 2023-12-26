@@ -1,6 +1,8 @@
 extends Node3D
 
+var FLOOR: PackedScene = preload("./floor.tscn")
 var BLOCK: PackedScene = preload("./block.tscn")
+var GATE: PackedScene = preload("./gate.tscn")
 
 var LEVEL_SIZE: int = 20
 var BLOCK_SIZE: float = 1.0
@@ -19,6 +21,7 @@ func _process(delta: float) -> void:
 enum CellType {
   Empty,
   Block,
+  Gate,
 }
 
 func generate_grid(grid_size: int) -> Array:
@@ -38,6 +41,22 @@ func generate_grid(grid_size: int) -> Array:
     for y in range(grid_size):
       grid[y][grid_size - 1] = CellType.Block 
 
+    var gate_pos: Vector2
+    var gate_rand = 1 + (randi() % (grid_size - 2))
+    # match randi() % 4:
+    match 3:
+        # top
+        0: gate_pos = Vector2(0, gate_rand)
+        # bot
+        1: gate_pos = Vector2(grid_size - 1, gate_rand)
+        # right
+        2: gate_pos = Vector2(gate_rand, grid_size - 1)
+        # left
+        3: gate_pos = Vector2(gate_rand, 0)
+
+    # use x/y insead y/x because this is how we created vector
+    grid[gate_pos.x][gate_pos.y] = CellType.Gate
+
     return grid
 
 func grid_pos(grid_x: int, grid_y: int) -> Vector3:
@@ -47,8 +66,10 @@ func grid_pos(grid_x: int, grid_y: int) -> Vector3:
 
     return Vector3(x, y, z)
 
-
 func spawn_grid(grid: Array): 
+    var floor = FLOOR.instantiate() as Node3D
+    self.add_child(floor)
+
     for y in range(grid.size()):
       for x in range(grid.size()):
         match grid[y][x]:
@@ -57,3 +78,19 @@ func spawn_grid(grid: Array):
             var wall = BLOCK.instantiate() as Node3D
             wall.position = grid_pos(x, y)
             self.add_child(wall)
+          CellType.Gate:
+            var gate = GATE.instantiate() as Node3D
+            gate.position = grid_pos(x, y)
+
+            # rotate if gate is on the left/right/bot wall
+            var gate_rotation: float = 0
+            if x == 0:
+              gate_rotation = -PI / 2.0
+            if x == grid.size() - 1:
+              gate_rotation = PI / 2.0
+            if y == 0:
+              gate_rotation = PI
+            gate.rotate_y(gate_rotation)
+
+            self.add_child(gate)
+

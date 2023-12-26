@@ -1,23 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://n42w3haqlfbi"]
+[gd_scene load_steps=2 format=3 uid="uid://n42w3haqlfbi"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_00wjt"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_73uqv"]
-size = Vector3(20, 1, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lpkxi"]
-size = Vector3(20, 1, 20)
 
 [node name="level" type="Node3D"]
 script = ExtResource("1_00wjt")
 
-[node name="floor" type="StaticBody3D" parent="."]
-
-[node name="mesh" type="MeshInstance3D" parent="floor"]
-mesh = SubResource("BoxMesh_73uqv")
-
-[node name="collision_box" type="CollisionShape3D" parent="floor"]
-shape = SubResource("BoxShape3D_lpkxi")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.821149, -0.48452, 0.301587, 0, 0.528438, 0.848972, -0.570714, -0.697132, 0.433927, 9.85685, 6.29891, 2.46637)
+transform = Transform3D(0.821149, -0.48452, 0.301587, 0, 0.528438, 0.848972, -0.570714, -0.697132, 0.433926, 9.85685, 6.29891, 2.46637)
