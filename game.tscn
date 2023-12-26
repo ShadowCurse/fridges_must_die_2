@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://2kktix1okyut"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_mopgf"]
+[ext_resource type="PackedScene" uid="uid://n42w3haqlfbi" path="res://level/level.tscn" id="2_11p0r"]
+[ext_resource type="PackedScene" uid="uid://dusmgni2b2tqv" path="res://player.tscn" id="3_mx6hw"]
+
+[node name="game" type="Node3D"]
+script = ExtResource("1_mopgf")
+LEVEL_SCENE = ExtResource("2_11p0r")
+PLAYER_SCENE = ExtResource("3_mx6hw")
