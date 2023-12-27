@@ -43,8 +43,7 @@ func generate_grid(grid_size: int) -> Array:
 
     var gate_pos: Vector2
     var gate_rand = 1 + (randi() % (grid_size - 2))
-    # match randi() % 4:
-    match 3:
+    match randi() % 4:
         # top
         0: gate_pos = Vector2(0, gate_rand)
         # bot
