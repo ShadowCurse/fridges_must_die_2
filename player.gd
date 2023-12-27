@@ -22,13 +22,20 @@ const GUN_BOB_SPEED: float = 10.0
 @onready var GUN_NODE: Node3D = $camera/gun_node
 @onready var GUN_NODE_DEFAULT_POSITION: Vector3 = GUN_NODE.position
 
+# temporary
+@onready var PISTOL: Node3D = $camera/gun_node/pistol
+
 # Get the GRAVITY from the project settings to be synced with RigidBody nodes.
 var GRAVITY: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var LAST_MOUSE_MOTION: Vector2
 
-func _ready():
+func _ready() -> void:
     pass
+
+func _process(delta: float) -> void:
+    if Input.is_action_just_pressed("game_rmb"):
+      PISTOL.shoot()
 
 func _physics_process(delta: float) -> void:
     # Add the GRAVITY.
