@@ -20,39 +20,39 @@ var target_position: Vector3
 var progress: float
 
 func _ready() -> void:
-	self.target_rotation = self.rotation
-	self.target_position = self.position
-	self.progress = 1.0
+    self.target_rotation = self.rotation
+    self.target_position = self.position
+    self.progress = 1.0
 
 func _process(delta: float) -> void:
-	if self.progress < 1.0:
-		self.progress += delta * recoil_speed
-		self.target_rotation.x = self.recoil_rotation_x.sample(self.progress) * self.recoil_strength.x
-		self.target_rotation.z = self.recoil_rotation_z.sample(self.progress) * self.recoil_strength.y
-		self.target_position.z = self.recoil_position_z.sample(self.progress) * self.recoil_strength.z
-	else:
-		self.target_rotation.x = 0.0
-		self.target_rotation.z = 0.0
-		self.target_position.z = 0.0
+    if self.progress < 1.0:
+        self.progress += delta * recoil_speed
+        self.target_rotation.x = self.recoil_rotation_x.sample(self.progress) * self.recoil_strength.x
+        self.target_rotation.z = self.recoil_rotation_z.sample(self.progress) * self.recoil_strength.y
+        self.target_position.z = self.recoil_position_z.sample(self.progress) * self.recoil_strength.z
+    else:
+        self.target_rotation.x = 0.0
+        self.target_rotation.z = 0.0
+        self.target_position.z = 0.0
 
-	self.rotation.x = lerpf(self.rotation.x, self.target_rotation.x, delta * recoil_speed)
-	self.rotation.z = lerpf(self.rotation.z, self.target_rotation.z, delta * recoil_speed)
-	self.position.z = lerpf(self.position.z, self.target_position.z, delta * recoil_speed)
+    self.rotation.x = lerpf(self.rotation.x, self.target_rotation.x, delta * recoil_speed)
+    self.rotation.z = lerpf(self.rotation.z, self.target_rotation.z, delta * recoil_speed)
+    self.position.z = lerpf(self.position.z, self.target_position.z, delta * recoil_speed)
 
 func shoot():
-	self.target_rotation.x = self.recoil_rotation_x.sample(0.0)
-	self.target_rotation.z = self.recoil_rotation_z.sample(0.0)
-	self.target_position.z = self.recoil_position_z.sample(0.0)
-	self.progress = 0.0
+    self.target_rotation.x = self.recoil_rotation_x.sample(0.0)
+    self.target_rotation.z = self.recoil_rotation_z.sample(0.0)
+    self.target_position.z = self.recoil_position_z.sample(0.0)
+    self.progress = 0.0
 
-	for point in self.round_points:
-		var round = round_scene.instantiate() as Round
-		round.transform = point.global_transform
-		round.speed = self.round_speed
-		get_node("/root").add_child(round)
+    for point in self.round_points:
+        var round = round_scene.instantiate() as Round
+        round.transform = point.global_transform
+        round.speed = self.round_speed
+        get_node("/root").add_child(round)
 
-	for point in self.shell_points:
-		var shell = shell_scene.instantiate() as RigidBody3D
-		shell.transform = point.global_transform
-		shell.linear_velocity = (self.to_global(Vector3.RIGHT) - self.global_position) * self.shell_speed
-		get_node("/root").add_child(shell)
+    for point in self.shell_points:
+        var shell = shell_scene.instantiate() as RigidBody3D
+        shell.transform = point.global_transform
+        shell.linear_velocity = (self.to_global(Vector3.RIGHT) - self.global_position) * self.shell_speed
+        get_node("/root").add_child(shell)
