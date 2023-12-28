@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cj7jpfjtfq83g" path="res://guns/minigun/minigun_shell.tscn" id="3_4f28o"]
 [ext_resource type="Curve" uid="uid://du4wle1t6jm1o" path="res://guns/minigun/minigun_curve.tres" id="4_xaeay"]
 
-[node name="minigun" type="Node3D" node_paths=PackedStringArray("round_points", "shell_points")]
+[node name="minigun" type="Node3D" node_paths=PackedStringArray("round_points", "shell_points", "attack_timer")]
 script = ExtResource("1_jnkkc")
 round_scene = ExtResource("2_qbk3p")
 shell_scene = ExtResource("3_4f28o")
@@ -15,6 +15,7 @@ shell_points = [NodePath("shell_point_1"), NodePath("shell_point_2")]
 recoil_rotation_x = ExtResource("4_xaeay")
 recoil_rotation_z = ExtResource("4_xaeay")
 recoil_position_z = ExtResource("4_xaeay")
+attack_timer = NodePath("attack_timer")
 
 [node name="minigun" parent="." instance=ExtResource("2_im583")]
 
@@ -29,3 +30,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212376, 0.382099, -1.15153)
 
 [node name="shell_point_2" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.212, 0.382, -1.152)
+
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="attack_timer" to="." method="on_attack_timer_timeout"]

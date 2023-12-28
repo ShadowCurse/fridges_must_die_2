@@ -15,9 +15,13 @@ extends Node3D
 @export var recoil_strength: Vector3 = Vector3.ONE
 @export var recoil_speed: float = 1.0
 
+@export var attack_timer: Timer
+
 var target_rotation: Vector3
 var target_position: Vector3
 var progress: float
+
+var ready_to_shoot: bool = true
 
 func _ready() -> void:
     self.target_rotation = self.rotation
@@ -40,19 +44,27 @@ func _process(delta: float) -> void:
     self.position.z = lerpf(self.position.z, self.target_position.z, delta * recoil_speed)
 
 func shoot():
-    self.target_rotation.x = self.recoil_rotation_x.sample(0.0)
-    self.target_rotation.z = self.recoil_rotation_z.sample(0.0)
-    self.target_position.z = self.recoil_position_z.sample(0.0)
-    self.progress = 0.0
+    if self.ready_to_shoot:
+      self.attack_timer.start()
+      self.ready_to_shoot = false
 
-    for point in self.round_points:
-        var round = round_scene.instantiate() as Round
-        round.transform = point.global_transform
-        round.speed = self.round_speed
-        get_node("/root").add_child(round)
+      self.target_rotation.x = self.recoil_rotation_x.sample(0.0)
+      self.target_rotation.z = self.recoil_rotation_z.sample(0.0)
+      self.target_position.z = self.recoil_position_z.sample(0.0)
+      self.progress = 0.0
 
-    for point in self.shell_points:
-        var shell = shell_scene.instantiate() as RigidBody3D
-        shell.transform = point.global_transform
-        shell.linear_velocity = (self.to_global(Vector3.RIGHT) - self.global_position) * self.shell_speed
-        get_node("/root").add_child(shell)
+      for point in self.round_points:
+          var round = round_scene.instantiate() as Round
+          round.transform = point.global_transform
+          round.speed = self.round_speed
+          get_node("/root").add_child(round)
+
+      for point in self.shell_points:
+          var shell = shell_scene.instantiate() as RigidBody3D
+          shell.transform = point.global_transform
+          shell.linear_velocity = (self.to_global(Vector3.RIGHT) - self.global_position) * self.shell_speed
+          get_node("/root").add_child(shell)
+
+
+func on_attack_timer_timeout() -> void:
+    self.ready_to_shoot = true

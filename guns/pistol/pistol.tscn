@@ -6,7 +6,7 @@
 [ext_resource type="Curve" uid="uid://bgc0h6o81gtgx" path="res://guns/pistol/pistol_curve.tres" id="4_yke2e"]
 [ext_resource type="PackedScene" uid="uid://ctjiqecxcdifu" path="res://assets/pistol/pistol.glb" id="5_5dobw"]
 
-[node name="pistol" type="Node3D" node_paths=PackedStringArray("round_points", "shell_points")]
+[node name="pistol" type="Node3D" node_paths=PackedStringArray("round_points", "shell_points", "attack_timer")]
 script = ExtResource("1_n2arm")
 round_scene = ExtResource("2_7g05c")
 shell_scene = ExtResource("3_0gvyc")
@@ -15,6 +15,7 @@ shell_points = [NodePath("shell_point")]
 recoil_rotation_x = ExtResource("4_yke2e")
 recoil_rotation_z = ExtResource("4_yke2e")
 recoil_position_z = ExtResource("4_yke2e")
+attack_timer = NodePath("attack_timer")
 
 [node name="pistol_model" parent="." instance=ExtResource("5_5dobw")]
 
@@ -23,3 +24,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210119, -1.0424)
 
 [node name="shell_point" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30597, -0.198659)
+
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="attack_timer" to="." method="on_attack_timer_timeout"]
