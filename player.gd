@@ -22,9 +22,6 @@ const GUN_BOB_SPEED: float = 10.0
 @onready var GUN_NODE: Node3D = $camera/gun_node
 @onready var GUN_NODE_DEFAULT_POSITION: Vector3 = GUN_NODE.position
 
-# temporary
-@onready var PISTOL: Node3D = $camera/gun_node/pistol
-
 # Get the GRAVITY from the project settings to be synced with RigidBody nodes.
 var GRAVITY: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -35,7 +32,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
     if Input.is_action_just_pressed("game_rmb"):
-      PISTOL.shoot()
+        var guns = GUN_NODE.get_children()
+        if guns.size() == 1:
+            guns[0].shoot()
 
 func _physics_process(delta: float) -> void:
     # Add the GRAVITY.
@@ -84,8 +83,8 @@ func gun_sway(delta: float):
     
 func gun_bob(delta):
     if self.velocity.length_squared() > 1.0 && self.is_on_floor():
-      GUN_NODE.position.x = lerp(GUN_NODE.position.x, GUN_NODE_DEFAULT_POSITION.x + sin(Time.get_ticks_msec() * GUN_BOB_MOVE_FREQ) * GUN_BOB_MOVE, delta * GUN_BOB_SPEED)
-      GUN_NODE.position.y = lerp(GUN_NODE.position.y, GUN_NODE_DEFAULT_POSITION.y + abs(sin(Time.get_ticks_msec() * GUN_BOB_MOVE_FREQ) * GUN_BOB_MOVE), delta * GUN_BOB_SPEED)
+        GUN_NODE.position.x = lerp(GUN_NODE.position.x, GUN_NODE_DEFAULT_POSITION.x + sin(Time.get_ticks_msec() * GUN_BOB_MOVE_FREQ) * GUN_BOB_MOVE, delta * GUN_BOB_SPEED)
+        GUN_NODE.position.y = lerp(GUN_NODE.position.y, GUN_NODE_DEFAULT_POSITION.y + abs(sin(Time.get_ticks_msec() * GUN_BOB_MOVE_FREQ) * GUN_BOB_MOVE), delta * GUN_BOB_SPEED)
     else:
-      GUN_NODE.position.x = lerp(GUN_NODE.position.x, GUN_NODE_DEFAULT_POSITION.x + sin(Time.get_ticks_msec() * GUN_BOB_STOP_FREQ) * GUN_BOB_STOP, delta * GUN_BOB_SPEED)
-      GUN_NODE.position.y = lerp(GUN_NODE.position.y, GUN_NODE_DEFAULT_POSITION.y + abs(sin(Time.get_ticks_msec() * GUN_BOB_STOP_FREQ) * GUN_BOB_STOP), delta * GUN_BOB_SPEED)
+        GUN_NODE.position.x = lerp(GUN_NODE.position.x, GUN_NODE_DEFAULT_POSITION.x + sin(Time.get_ticks_msec() * GUN_BOB_STOP_FREQ) * GUN_BOB_STOP, delta * GUN_BOB_SPEED)
+        GUN_NODE.position.y = lerp(GUN_NODE.position.y, GUN_NODE_DEFAULT_POSITION.y + abs(sin(Time.get_ticks_msec() * GUN_BOB_STOP_FREQ) * GUN_BOB_STOP), delta * GUN_BOB_SPEED)

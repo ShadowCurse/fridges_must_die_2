@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgivfkbdd4rwc"]
+
+[ext_resource type="Script" path="res://guns/gun.gd" id="1_jnkkc"]
+[ext_resource type="PackedScene" uid="uid://hhck1uo4aag1" path="res://assets/minigun/minigun.glb" id="2_im583"]
+[ext_resource type="PackedScene" uid="uid://c80p8wqkmqhp5" path="res://guns/round.tscn" id="2_qbk3p"]
+[ext_resource type="PackedScene" uid="uid://cj7jpfjtfq83g" path="res://guns/minigun/minigun_shell.tscn" id="3_4f28o"]
+[ext_resource type="Curve" uid="uid://du4wle1t6jm1o" path="res://guns/minigun/minigun_curve.tres" id="4_xaeay"]
+
+[node name="minigun" type="Node3D" node_paths=PackedStringArray("round_points", "shell_points")]
+script = ExtResource("1_jnkkc")
+round_scene = ExtResource("2_qbk3p")
+shell_scene = ExtResource("3_4f28o")
+round_points = [NodePath("round_point_1"), NodePath("round_point_2")]
+shell_points = [NodePath("shell_point_1"), NodePath("shell_point_2")]
+recoil_rotation_x = ExtResource("4_xaeay")
+recoil_rotation_z = ExtResource("4_xaeay")
+recoil_position_z = ExtResource("4_xaeay")
+
+[node name="minigun" parent="." instance=ExtResource("2_im583")]
+
+[node name="round_point_1" type="Marker3D" parent="."]
+transform = Transform3D(0.999524, 0, -0.0308525, 0, 1, 0, 0.0308525, 0, 0.999524, -0.153615, 0.328, -2.088)
+
+[node name="round_point_2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154, 0.328, -2.088)
+
+[node name="shell_point_1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212376, 0.382099, -1.15153)
+
+[node name="shell_point_2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.212, 0.382, -1.152)
