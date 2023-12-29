@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name Gun
+
 @export var round_scene: PackedScene
 @export var shell_scene: PackedScene
 
