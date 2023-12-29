@@ -1,9 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://n42w3haqlfbi"]
+[gd_scene load_steps=27 format=3 uid="uid://n42w3haqlfbi"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_00wjt"]
 [ext_resource type="PackedScene" uid="uid://6t0s0jqd7ykl" path="res://enemies/enemy_mid.tscn" id="3_rprok"]
 [ext_resource type="PackedScene" uid="uid://cxe31ju04cuc8" path="res://enemies/enemy_small.tscn" id="4_87av7"]
 [ext_resource type="PackedScene" uid="uid://dusmgni2b2tqv" path="res://player.tscn" id="5_1t0ca"]
+[ext_resource type="PackedScene" uid="uid://lqg08mam6qev" path="res://floating_object.tscn" id="5_3h61b"]
+[ext_resource type="PackedScene" uid="uid://wy366for1tbk" path="res://guns/shotgun/shotgun.tscn" id="6_c71m4"]
+[ext_resource type="PackedScene" uid="uid://bgivfkbdd4rwc" path="res://guns/minigun/minigun.tscn" id="7_jpymt"]
+[ext_resource type="PackedScene" uid="uid://droxyu7wpwg6k" path="res://guns/pistol/pistol.tscn" id="8_h8x1h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1m3fk"]
 size = Vector2(50, 100)
@@ -296,3 +300,15 @@ shape = SubResource("ConcavePolygonShape3D_w0wqp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.99885, 0.0414697, 0.0240419, -0.00362291, -0.434809, 0.900516, 0.0477977, -0.899567, -0.434159, 0, 11.2186, 0)
+
+[node name="floating_object" parent="." instance=ExtResource("5_3h61b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92149, 0.813643, -22.7214)
+object = ExtResource("6_c71m4")
+
+[node name="floating_object2" parent="." instance=ExtResource("5_3h61b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7372, 0.813643, -22.7214)
+object = ExtResource("7_jpymt")
+
+[node name="floating_object3" parent="." instance=ExtResource("5_3h61b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22034, 0.813643, -22.7214)
+object = ExtResource("8_h8x1h")
