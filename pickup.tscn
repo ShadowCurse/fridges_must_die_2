@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://lqg08mam6qev"]
 
-[ext_resource type="Script" path="res://floating_object.gd" id="1_yv14j"]
+[ext_resource type="Script" path="res://pickup.gd" id="1_yv14j"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_b1xsk"]
 
