@@ -11,13 +11,6 @@ func _ready() -> void:
     var level = LEVEL_SCENE.instantiate() as Node3D
     self.add_child(level)
 
-    var player = PLAYER_SCENE.instantiate() as Node3D
-    self.add_child(player)
-
-    var enemy = ENEMY_SCENE.instantiate() as Node3D
-    enemy.position = Vector3(5.0, 1.0, 5.0)
-    self.add_child(enemy)
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
     pass
