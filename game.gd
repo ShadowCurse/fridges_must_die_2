@@ -2,6 +2,7 @@ extends Node3D
 
 @export var LEVEL_SCENE: PackedScene
 @export var PLAYER_SCENE: PackedScene
+@export var ENEMY_SCENE: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,10 @@ func _ready() -> void:
 
     var player = PLAYER_SCENE.instantiate() as Node3D
     self.add_child(player)
+
+    var enemy = ENEMY_SCENE.instantiate() as Node3D
+    enemy.position = Vector3(5.0, 1.0, 5.0)
+    self.add_child(enemy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
