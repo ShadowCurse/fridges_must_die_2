@@ -11,7 +11,6 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _physics_process(delta: float) -> void:
     if not self.is_on_floor():
-        print("enemy is not on the floor")
         self.velocity.y -= gravity * delta
 
     if player:
