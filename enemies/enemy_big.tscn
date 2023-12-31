@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://tngsjw3knjw7" path="res://assets/enemies/big_fridge.glb" id="2_4jjb4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wocoj"]
-size = Vector3(4.08316, 8, 3.14404)
+size = Vector3(2, 3.96094, 1.63207)
 
 [node name="enemy_big" type="CharacterBody3D"]
 script = ExtResource("1_68adm")
@@ -12,5 +12,5 @@ script = ExtResource("1_68adm")
 [node name="big_fridge" parent="." instance=ExtResource("2_4jjb4")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0128326, -0.0847467, -0.778076)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98172, -0.0329529)
 shape = SubResource("BoxShape3D_wocoj")

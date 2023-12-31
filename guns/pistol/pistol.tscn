@@ -20,10 +20,10 @@ attack_timer = NodePath("attack_timer")
 [node name="pistol_model" parent="." instance=ExtResource("5_5dobw")]
 
 [node name="round_point" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210119, -1.0424)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15986, -0.332181)
 
 [node name="shell_point" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30597, -0.198659)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177704, -0.0273653)
 
 [node name="attack_timer" type="Timer" parent="."]
 wait_time = 0.5

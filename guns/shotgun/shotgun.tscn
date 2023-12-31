@@ -22,34 +22,34 @@ attack_timer = NodePath("attack_timer")
 [node name="shotgun" parent="." instance=ExtResource("1_qauxj")]
 
 [node name="round_point_right_1" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141, -0.104, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0514318, 0.135558, -0.672184)
 
 [node name="round_point_right_2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242243, -0.104, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.107633, 0.135558, -0.672184)
 
 [node name="round_point_right_3" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141, 0.0595214, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0514318, 0.197606, -0.672184)
 
 [node name="round_point_right_4" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.242243, 0.0595214, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.107633, 0.197606, -0.672184)
 
 [node name="round_point_left_1" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209236, -0.104, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0854531, 0.131354, -0.672184)
 
 [node name="round_point_left_2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107993, -0.104, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0324557, 0.131354, -0.672184)
 
 [node name="round_point_left_3" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209236, 0.0595214, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0854531, 0.201192, -0.672184)
 
 [node name="round_point_left_5" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107993, 0.0595214, -1.313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0324557, 0.201192, -0.672184)
 
 [node name="shell_point_right" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195613, 0.304225, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0789818, 0.227002, 0)
 
 [node name="shell_point_left" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196, 0.304, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.079, 0.227, 0)
 
 [node name="attack_timer" type="Timer" parent="."]
 wait_time = 0.3
