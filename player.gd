@@ -24,6 +24,9 @@ const GUN_BOB_SPEED: float = 10.0
 @onready var gun_node: Node3D = $camera/gun_node
 @onready var gun_node_default_position: Vector3 = gun_node.position
 
+const GUN_STACK_SIZE: int = 5;
+var gun_stack: Array[Node3D] = []
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -34,9 +37,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
     if Input.is_action_pressed("game_rmb"):
-        var guns = gun_node.get_children()
-        if guns.size() == 1:
-            guns[0].shoot()
+        self.shoot_weapon()
+        
+    if Input.is_action_just_pressed("game_throw_weapon"):
+        self.throw_weapon()
 
 func _physics_process(delta: float) -> void:
     # Add the gravity.
@@ -93,8 +97,26 @@ func gun_bob(delta):
 
 func use_pickup(node: Node3D) -> bool:
     if node is Gun:
-        var guns = gun_node.get_children()
-        if guns.is_empty():
-            self.gun_node.add_child(node)
-            return true
+        if gun_stack.size() == GUN_STACK_SIZE:
+            return false
+        else:
+          var attached_guns = gun_node.get_children()
+          if attached_guns.is_empty():
+              gun_node.add_child(node)
+          gun_stack.append(node)
+          return true
     return false
+
+func shoot_weapon() -> void:
+      var attached_guns = gun_node.get_children()
+      if attached_guns.size() == 1:
+          attached_guns[0].shoot()
+
+func throw_weapon() -> void:
+      var attached_guns = gun_node.get_children()
+      if attached_guns.size() == 1:
+        gun_node.remove_child(attached_guns[0])
+        attached_guns[0].queue_free()
+      if !gun_stack.is_empty():
+          var gun = gun_stack.pop_back()
+          gun_node.add_child(gun)
