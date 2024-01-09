@@ -100,8 +100,8 @@ func use_pickup(node: Node3D) -> bool:
         if gun_stack.size() == GUN_STACK_SIZE:
             return false
         else:
-          var attached_guns = gun_node.get_children()
-          if attached_guns.is_empty():
+          var attached_gun = gun_node.get_child(0)
+          if attached_gun == null:
               gun_node.add_child(node)
           gun_stack.append(node)
           return true
@@ -113,10 +113,11 @@ func shoot_weapon() -> void:
           attached_guns[0].shoot()
 
 func throw_weapon() -> void:
-      var attached_guns = gun_node.get_children()
-      if attached_guns.size() == 1:
-        gun_node.remove_child(attached_guns[0])
-        attached_guns[0].queue_free()
-      if !gun_stack.is_empty():
-          var gun = gun_stack.pop_back()
-          gun_node.add_child(gun)
+      var attached_gun = gun_node.get_child(0)
+      if attached_gun != null:
+          gun_node.remove_child(attached_gun)
+          attached_gun.queue_free()
+
+      var next_gun = gun_stack.pop_back()
+      if next_gun != null:
+          gun_node.add_child(next_gun)
