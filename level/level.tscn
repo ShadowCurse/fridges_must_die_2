@@ -340,11 +340,14 @@ transform = Transform3D(0.99885, 0.0414697, 0.0240419, -0.00362291, -0.434809, 0
 [node name="pickup" parent="." instance=ExtResource("5_3h61b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92149, 0.813643, -22.7214)
 object = ExtResource("6_c71m4")
+hilight_color = Color(0.768627, 0.211765, 0, 1)
 
 [node name="pickup2" parent="." instance=ExtResource("5_3h61b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7372, 0.813643, -22.7214)
 object = ExtResource("7_jpymt")
+hilight_color = Color(0, 0.454902, 0.0196078, 1)
 
 [node name="pickup3" parent="." instance=ExtResource("5_3h61b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22034, 0.813643, -22.7214)
 object = ExtResource("8_h8x1h")
+hilight_color = Color(0.298039, 0, 0.913725, 1)

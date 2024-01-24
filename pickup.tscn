@@ -9,6 +9,10 @@ script = ExtResource("1_yv14j")
 
 [node name="anchor" type="Node3D" parent="."]
 
+[node name="OmniLight3D" type="OmniLight3D" parent="anchor"]
+light_energy = 10.0
+light_size = 0.333
+
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 8
 collision_mask = 4
