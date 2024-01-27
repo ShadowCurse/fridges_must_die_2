@@ -9,6 +9,7 @@ radius = 0.3
 radius = 0.3
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.019, 0)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_uyg0w")
@@ -24,3 +25,8 @@ shape = SubResource("CapsuleShape3D_3rxnl")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_1p3na")
+
+[node name="speed_boost_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="speed_boost_timer" to="." method="on_speed_boost_timer_timeout"]

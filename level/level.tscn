@@ -90,7 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13942, 2.46088, 21.9553)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.86598, 2.70517, 21)
 
 [node name="player" parent="." instance=ExtResource("5_1t0ca")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.40049, -36.1354)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.04019, -36.1354)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(9.32157, 0, 0, 0, 1.91444, 0, 0, 0, 32.2385, 15.9594, 0.562927, -0.0274677)

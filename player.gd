@@ -3,6 +3,7 @@ extends CharacterBody3D
 class_name Player
 
 const SPEED: float = 10.0
+const SLIDING_SPEED: float = 20.0
 const DECELERATION: float = 5.0
 const JUMP_VELOCITY: float = 4.5
 const MOUSE_SENSE: float = 0.002
@@ -23,9 +24,19 @@ const GUN_BOB_SPEED: float = 10.0
 @onready var camera: Camera3D = $camera
 @onready var gun_node: Node3D = $camera/gun_node
 @onready var gun_node_default_position: Vector3 = gun_node.position
+@onready var speed_boost_timer: Timer = $speed_boost_timer
+
+@export var speed_boost_multiplier: float = 2.0
+@export var speed_boost_duration_slide: float = 1.0
+@export var speed_boost_duration_slide_end: float = 0.2
+@export var speed_boost_duration_jump: float = 0.5
 
 const GUN_STACK_SIZE: int = 5;
 var gun_stack: Array[Node3D] = []
+
+var speed_boost: bool = false
+var sliding: bool = false
+var sliding_direction: Vector3
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -50,14 +61,38 @@ func _physics_process(delta: float) -> void:
     # Handle jump.
     if Input.is_action_just_pressed("game_jump") and self.is_on_floor():
         self.velocity.y = JUMP_VELOCITY
+        self.scale.y = 1.0
+        self.speed_boost_timer.start(self.speed_boost_duration_jump)
 
+    # Handle movement
     # Get the input direction and handle the movement/deceleration.
     # As good practice, you should replace UI actions with custom gameplay actions.
     var input_dir := Input.get_vector("game_left", "game_right", "game_front", "game_back")
     var direction := (self.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+    # Handle crouch.
+    if Input.is_action_just_pressed("game_crouch") and self.is_on_floor():
+        self.scale.y = 0.5
+        self.sliding = true
+        self.speed_boost = true
+        self.sliding_direction = direction
+        self.speed_boost_timer.start(self.speed_boost_duration_slide)
+
+    if Input.is_action_just_released("game_crouch"):
+        self.scale.y = 1.0
+        self.sliding = false
+        self.speed_boost_timer.start(self.speed_boost_duration_slide_end)
+
+    if self.sliding and self.speed_boost:
+        direction = self.sliding_direction
+
     if direction:
-        self.velocity.x = direction.x * SPEED
-        self.velocity.z = direction.z * SPEED
+        if self.speed_boost:
+            self.velocity.x = direction.x * SPEED * self.speed_boost_multiplier 
+            self.velocity.z = direction.z * SPEED * self.speed_boost_multiplier
+        else:
+            self.velocity.x = direction.x * SPEED
+            self.velocity.z = direction.z * SPEED
     else:
         self.velocity.x = lerpf(self.velocity.x, 0, DECELERATION * delta)
         self.velocity.z = lerpf(self.velocity.z, 0, DECELERATION * delta)
@@ -121,3 +156,7 @@ func throw_weapon() -> void:
       var next_gun = gun_stack.pop_back()
       if next_gun != null:
           gun_node.add_child(next_gun)
+
+
+func on_speed_boost_timer_timeout() -> void:
+    self.speed_boost = false
